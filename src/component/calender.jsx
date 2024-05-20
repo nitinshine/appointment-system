@@ -1,6 +1,13 @@
 import styled, { createGlobalStyle } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  fetchTimeSlots,
+  setSelectedDate,
+  setSelectedTimeSlot,
+} from "../../redux/slice/appointmentSlice";
+import { useEffect } from "react";
 import {
   faChevronDown,
   faChevronRight,
@@ -18,8 +25,8 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 const MainContainer = styled.div`
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -192,31 +199,16 @@ const SlotsTimeContainer = styled.div`
   height: 48px;
   width: 384px;
   display: flex;
-  justify-content: center;
+  justify-content: ${(props) =>
+    props.isSelected ? "space-between" : "center"};
   align-items: center;
   cursor: pointer;
   border: 1px solid #378760;
   padding: 8px 12px 8px 12px;
   border-radius: 10px;
+  background-color: ${(props) => (props.isSelected ? "#378760" : "white")};
   span {
-    color: #378760;
-    font-size: 14px;
-    font-weight: 600;
-  }
-`;
-const SlotsTimeContainerNew = styled.div`
-  height: 48px;
-  width: 384px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  border: 1px solid #378760;
-  padding: 8px 12px 8px 12px;
-  border-radius: 10px;
-  background-color: #378760;
-  span {
-    color: white;
+    color: ${(props) => (props.isSelected ? "white" : "#378760")};
     font-size: 14px;
     font-weight: 600;
   }
@@ -231,6 +223,24 @@ const SlotsTimerMain = styled.div`
 `;
 
 const Calender = () => {
+  const dispatch = useDispatch();
+  const appointment = useSelector((state) => state.appointment);
+
+  useEffect(() => {
+    dispatch(fetchTimeSlots());
+  }, []);
+
+  const handleSelectDate = (date) => {
+    dispatch(setSelectedDate(date));
+  };
+
+  const handleSelectTimeSlot = (slot) => {
+    dispatch(setSelectedTimeSlot(slot));
+  };
+
+  const slotsByDate = appointment.timeSlot?.data?.find(
+    (slot) => slot.date === appointment.selectedDate
+  )?.slots;
   return (
     <>
       <GlobalStyle />
@@ -258,25 +268,42 @@ const Calender = () => {
               </VariantsContainer>
               <Divider></Divider>
               <SlotsContainer>
-                <span>THURSDAY, DEC 2 - AVAILABLE SLOTS</span>
-                <SlotsTimerMain>
-                  <SlotsTimeContainer>
-                    <span>03:30 AM - 04:00 AM</span>
-                  </SlotsTimeContainer>
-                  <SlotsTimeContainerNew>
-                    <span>04:00 AM - 04:30 AM</span>
-                    <FontAwesomeIcon
-                      icon={faCircleCheck}
-                      style={{ color: "white", height: "23px", width: "23px" }}
-                    />
-                  </SlotsTimeContainerNew>
-                  <SlotsTimeContainer>
-                    <span>04:30 AM - 05:00 AM</span>
-                  </SlotsTimeContainer>
-                  <SlotsTimeContainer>
-                    <span>05:00 AM - 05:30 AM</span>
-                  </SlotsTimeContainer>
-                </SlotsTimerMain>
+                {appointment.timeSlot?.isLoading ? (
+                  <>
+                    <b>Fetching available time slots...</b>
+                  </>
+                ) : (
+                  <>
+                    <span>{appointment.selectedDate} - AVAILABLE SLOTS</span>
+                    <SlotsTimerMain>
+                      {slotsByDate?.map((slot, idx) => {
+                        return (
+                          <SlotsTimeContainer
+                            isSelected={
+                              slot === appointment.timeSlot.selectedTimeSlot
+                            }
+                            key={idx}
+                            onClick={() => handleSelectTimeSlot(slot)}
+                          >
+                            <span>
+                              {slot.start_time} - {slot.end_time}
+                            </span>
+                            {slot === appointment.timeSlot.selectedTimeSlot && (
+                              <FontAwesomeIcon
+                                icon={faCircleCheck}
+                                style={{
+                                  color: "white",
+                                  height: "23px",
+                                  width: "23px",
+                                }}
+                              />
+                            )}
+                          </SlotsTimeContainer>
+                        );
+                      })}
+                    </SlotsTimerMain>
+                  </>
+                )}
               </SlotsContainer>
             </TimeContainer>
           </MainCalenderContainer>
