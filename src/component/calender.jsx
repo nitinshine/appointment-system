@@ -1,6 +1,10 @@
 import styled, { createGlobalStyle } from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleCheck } from "@fortawesome/free-regular-svg-icons";
+import {
+  faChevronDown,
+  faChevronRight,
+} from "@fortawesome/free-solid-svg-icons";
 
 const GlobalStyle = createGlobalStyle`
   *, *::before, *::after {
@@ -20,7 +24,7 @@ const MainContainer = styled.div`
   justify-content: center;
   align-items: center;
 `;
-const BackgroundBlur = styled.div`
+const BackgroundBlurRight = styled.div`
   height: 300px;
   width: 300px;
   background-color: #378760;
@@ -33,6 +37,27 @@ const BackgroundBlur = styled.div`
   z-index: -1;
 `;
 
+const BackgroundBlurLeft = styled.div`
+  height: 200px;
+  width: 200px;
+  background-color: #378760;
+  opacity: 0.3;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 0px;
+  left: 100px;
+  filter: blur(100px);
+  z-index: -1;
+`;
+
+// const LeftImage = styled.div`
+//   width: 300px;
+//   height: 199.51px;
+//   background-image: url(${SideImage});
+//   background-size: cover;
+//   background-position: center;
+//   background-repeat: no-repeat;
+// `;
 const CalenderContainer = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -68,6 +93,13 @@ const NextButton = styled.div`
   align-items: center;
   border-radius: 10px;
   background: white;
+
+  span {
+    width: 5px;
+    height: 10px;
+    color: #378760;
+    margin-bottom: 7px;
+  }
 `;
 
 const MainCalenderContainer = styled.div`
@@ -93,7 +125,14 @@ const MainCalender = styled.div`
   }
 `;
 
-const TitleContainer = styled.div``;
+const TitleContainer = styled.div`
+  span {
+    font-size: 14px;
+    font-weight: 600;
+    line-height: 21px;
+    color: #555770;
+  }
+`;
 
 const TimeContainer = styled.div`
   height: 494px;
@@ -196,12 +235,15 @@ const Calender = () => {
     <>
       <GlobalStyle />
       <MainContainer>
-        <BackgroundBlur></BackgroundBlur>
+        <BackgroundBlurLeft></BackgroundBlurLeft>
+        <BackgroundBlurRight></BackgroundBlurRight>
+        {/* <LeftImage></LeftImage> */}
         <CalenderContainer>
           <MainCalenderContainer>
             <MainCalender>
               <TitleContainer>
                 <div>Test Services</div>
+                <span>Timezone:</span>
               </TitleContainer>
             </MainCalender>
             <TimeContainer>
@@ -209,6 +251,9 @@ const Calender = () => {
                 <span>SELECT FROM VARAIANTS</span>
                 <SelectContainer>
                   <span>30 min</span>
+                  <span>
+                    <FontAwesomeIcon icon={faChevronDown} />
+                  </span>
                 </SelectContainer>
               </VariantsContainer>
               <Divider></Divider>
@@ -238,7 +283,12 @@ const Calender = () => {
           <Footer>
             <span>POWERED BY APPOINTO</span>
 
-            <NextButton>Next</NextButton>
+            <NextButton>
+              Next &nbsp;
+              <span>
+                <FontAwesomeIcon icon={faChevronRight} />
+              </span>
+            </NextButton>
           </Footer>
         </CalenderContainer>
       </MainContainer>
