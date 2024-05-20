@@ -7,7 +7,7 @@ import {
 } from "../redux/slice/appointmentSlice";
 import Calender from "./component/calender";
 
-export const App = () => {
+const App = () => {
   const dispatch = useDispatch();
   const appointment = useSelector((state) => state.appointment);
 
@@ -47,3 +47,5 @@ export const App = () => {
     </>
   );
 };
+
+export default App;
