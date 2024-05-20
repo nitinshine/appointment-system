@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getTimeSlots } from "../../src/services/api/calendar";
-import { getCurrentDate } from "../../src/services/utils";
+import { getFormattedDate } from "../../src/services/utils";
 
 const timeSlotsSlice = createSlice({
   name: "appointment",
@@ -11,7 +11,7 @@ const timeSlotsSlice = createSlice({
       selectedTimeSlot: null,
       isLoading: false,
     },
-    selectedDate: getCurrentDate(),
+    selectedDate: getFormattedDate(new Date()),
   },
   reducers: {
     setSelectedDate: (state, action) => {
@@ -27,7 +27,9 @@ const timeSlotsSlice = createSlice({
     });
     builder.addCase(fetchTimeSlots.fulfilled, (state, action) => {
       state.timeSlot.isLoading = false;
-      state.timeSlot.data = action.payload;
+      state.timeSlot.data = action.payload.length
+        ? action.payload
+        : state.timeSlot.data;
     });
     builder.addCase(fetchTimeSlots.rejected, (state) => {
       state.timeSlot.isLoading = false;
@@ -36,10 +38,13 @@ const timeSlotsSlice = createSlice({
   },
 });
 
-export const fetchTimeSlots = createAsyncThunk("fetchTimeSlots", async () => {
-  const res = await getTimeSlots();
-  return res;
-});
+export const fetchTimeSlots = createAsyncThunk(
+  "fetchTimeSlots",
+  async (date) => {
+    const res = await getTimeSlots(date);
+    return res;
+  }
+);
 
 export const { setSelectedDate, setSelectedTimeSlot } = timeSlotsSlice.actions;
 
