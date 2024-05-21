@@ -70,7 +70,8 @@ const Calender = () => {
             <MainCalender>
               <TitleContainer>
                 <div>Test Services</div>
-                <span>Timezone: Asia/Calcutta</span>
+                <span>Timezone:</span>
+                <span> Asia/Calcutta</span>
                 <CalendarInput
                   onDateChange={handleChangeDate}
                   date={new Date(appointment.selectedDate)}

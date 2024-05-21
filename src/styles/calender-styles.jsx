@@ -171,6 +171,9 @@ export const TitleContainer = styled.div`
     line-height: 21px;
     color: #555770;
   }
+  span:nth-of-type(2) {
+    font-weight: 400;
+  }
 `;
 
 export const CalendarWrapper = styled.div`
