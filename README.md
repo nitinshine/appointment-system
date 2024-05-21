@@ -1,8 +1,27 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+# Appointment System
 
-Currently, two official plugins are available:
+This is an awesome application for booking an appointment with calendar integration
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+
+## Run the app
+
+Install dependencies
+
+```bash
+  yarn
+```
+    
+## Run the app
+
+
+```bash
+  yarn dev
+```
+## Access the app
+
+After successfully following the above steps, the app should be accessible at
+
+```bash
+http://localhost:5173
+```
