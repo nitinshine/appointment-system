@@ -254,6 +254,7 @@ export const CalendarWrapper = styled.div`
     font-size: 18px;
     font-weight: 500;
     color: #333333;
+    font-family: Poppins;
   }
   .react-calendar__navigation {
     align-items: center;
