@@ -21,12 +21,13 @@ export const formatTo12HourTime = (date) => {
   const ampm = hours >= 12 ? "PM" : "AM";
   hours = hours % 12;
   hours = hours ? hours : 12; // the hour '0' should be '12'
+  hours = hours < 10 ? "0" + hours : hours; // adding leading zero if hours < 10
   minutes = minutes < 10 ? "0" + minutes : minutes; // adding leading zero if minutes < 10
   const strTime = hours + ":" + minutes + " " + ampm;
   return strTime;
 };
 
-export function formatDate(dateString) {
+export const formatDate = (dateString) => {
   const date = new Date(dateString);
 
   const options = { weekday: "long", month: "short", day: "numeric" };
@@ -41,4 +42,4 @@ export function formatDate(dateString) {
   )}`;
 
   return formattedString;
-}
+};
