@@ -46,29 +46,29 @@ export const BackgroundBlurLeft = styled.div`
   z-index: -1;
 `;
 export const LeftImageContainer = styled.div`
-  width: 400px;
-  height: 199.51px;
+  width: 385px;
+  height: 200px;
   background-image: url(${LeftImage});
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
   z-index: -1;
   position: absolute;
   bottom: -3px;
-  left: 150px;
+  left: 0;
 `;
 
 export const RightImageContainer = styled.div`
-  width: 400px;
-  height: 300.51px;
+  width: 290px;
+  height: 230px;
   background-image: url(${RightImage});
-  background-size: cover;
+  background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
   z-index: -1;
   position: absolute;
   bottom: 200px;
-  right: 115px;
+  right: 0;
 
   @media (max-width: 990px) {
     max-width: 535px;
@@ -160,6 +160,7 @@ export const MainCalender = styled.div`
   @media (max-width: 990px) {
     width: 87%;
     border-top-right-radius: 12px;
+    margin: 100px 0 0 0;
   }
 `;
 
@@ -180,7 +181,6 @@ export const CalendarWrapper = styled.div`
   align-items: center;
 
   @media (max-width: 990px) {
-    width: 87%;
     border-top-right-radius: 12px;
   }
 
@@ -190,7 +190,7 @@ export const CalendarWrapper = styled.div`
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     font-size: 12px;
-    width: 380px;
+    width: 100%;
     height: 350px;
   }
   .react-calendar__tile {
@@ -270,5 +270,8 @@ export const CalendarWrapper = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+  .react-calendar__viewContainer {
+    width: 100%;
   }
 `;
